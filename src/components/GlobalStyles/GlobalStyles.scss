@@ -1,7 +1,7 @@
 @import 'normalize.css';
 
 :root {
-    --primary-color: lightcoral;
+    --primary-color: #fc1503;
     --black: #000;
     --text-color: #444;
     --white-color: #fff;
@@ -72,7 +72,7 @@ button,
     transition: all 0.3s ease;
 
     &:hover {
-        background-color: #fc1503 !important;
+        background-color: var(--primary-color) !important;
         color: white !important;
     }
 
