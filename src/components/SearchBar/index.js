@@ -23,7 +23,7 @@ function SearchBar() {
                 onChange={(e) => setKeyword(e.target.value)}
             />
             <IconButton type="submit" sx={{ p: '10px', color: 'red' }}>
-                <Search />
+                <Search sx={{ width: 20, height: 20 }} />
             </IconButton>
         </Paper>
     );

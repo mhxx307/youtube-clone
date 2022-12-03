@@ -27,19 +27,19 @@ body {
 }
 
 // scrollbar
-html *::-webkit-scrollbar {
-    border-radius: 0;
-    width: 8px;
+::-webkit-scrollbar {
+    width: 0;
+    height: 5px;
 }
 
-html *::-webkit-scrollbar-thumb {
-    border-radius: 4px;
-    background-color: rgba(22, 24, 35, 0.06);
+::-webkit-scrollbar-thumb {
+    background: rgb(114, 113, 113);
+    border-radius: 10px;
+    height: 200px;
 }
 
-html *::-webkit-scrollbar-track {
-    border-radius: 0;
-    background-color: rgba(0, 0, 0, 0);
+::-webkit-scrollbar-track {
+    background: transparent;
 }
 
 a {
@@ -52,4 +52,69 @@ button,
 [tabindex] {
     outline: none;
     border: none;
+}
+
+// btn
+.category-btn {
+    font-weight: bold !important;
+    text-transform: capitalize;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    cursor: pointer;
+    background: transparent;
+    outline: none;
+    border: none;
+
+    padding: 7px 15px;
+    margin: 10px 0px;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+
+    &:hover {
+        background-color: #fc1503 !important;
+        color: white !important;
+    }
+
+    &:hover span {
+        color: white !important;
+    }
+}
+
+// react player
+.react-player {
+    height: 77vh !important;
+    width: 100% !important;
+}
+
+// search bar
+.search-bar {
+    border: none;
+    outline: none;
+    width: 350px;
+}
+
+@media screen and (max-width: 900px) {
+    .category-btn {
+        margin: 10px;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .copyright {
+        display: none !important;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .scroll-horizontal {
+        overflow: auto !important;
+    }
+
+    .react-player {
+        height: 45vh !important;
+    }
+    .search-bar {
+        width: 200px;
+    }
 }

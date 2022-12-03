@@ -30,8 +30,3 @@ export const categories = [
     { name: 'NextJS', icon: <CodeIcon /> },
     { name: 'Podcast', icon: <GraphicEqIcon /> },
 ];
-
-export const demoThumbnailUrl = '';
-export const demoChannelUrl = '';
-export const demoVideoUrl = '';
-export const demoProfilePicture = '';
