@@ -6,6 +6,7 @@ import {
     Navbar,
     SearchFeed,
     VideoDetail,
+    VideoNotFound,
 } from '~/components';
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
                         path="/search/:searchTerm"
                         element={<SearchFeed />}
                     />
+                    <Route path="/videoNotFound" element={<VideoNotFound />} />
                 </Routes>
             </Box>
         </BrowserRouter>

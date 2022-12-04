@@ -4,6 +4,7 @@ import { Sidebar } from '~/components';
 import { Videos } from '~/components';
 import { fetchFromApi } from '~/utils/fetchFromApi';
 
+// chứa sidebar và videos
 function Feed() {
     const [selectedCategory, setSelectedCategory] = useState('New');
     const [videos, setVideos] = useState([]);
