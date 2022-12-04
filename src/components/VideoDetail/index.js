@@ -4,10 +4,12 @@ import { useEffect, useState } from 'react';
 import ReactPlayer from 'react-player';
 import { Link, useParams } from 'react-router-dom';
 import { fetchFromApi } from '~/utils/fetchFromApi';
+import { Videos } from '~/components';
 
 function VideoDetail() {
     const { id } = useParams();
     const [videoDetail, setVideoDetail] = useState(null);
+    const [recommendedVideos, setRecommendedVideos] = useState([]);
 
     const { snippet, statistics } = videoDetail || {};
     const { title, channelId, channelTitle } = snippet || {};
@@ -18,14 +20,30 @@ function VideoDetail() {
             part: 'snippet,statistics',
             id: id,
         };
-        fetchFromApi('videos', params)
+        fetchFromApi('/videos', params)
             .then((data) => {
                 setVideoDetail(data.items[0]);
             })
             .catch((err) => {
                 console.log(err);
             });
+
+        const params2 = {
+            part: 'snippet',
+            relatedToVideo: id,
+            type: 'video',
+            maxResults: 10,
+        };
+        fetchFromApi('/search', params2)
+            .then((data) => {
+                setRecommendedVideos(data.items);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
     }, [id]);
+
+    if (!videoDetail?.snippet) return 'Loading...';
 
     return (
         <Box minHeight="95vh">
@@ -98,6 +116,16 @@ function VideoDetail() {
                             </Stack>
                         </Stack>
                     </Box>
+                </Box>
+
+                {/* recommend videos */}
+                <Box
+                    px={2}
+                    py={{ md: 1, xs: 5 }}
+                    justifyContent="center"
+                    alignItems="center"
+                >
+                    <Videos videos={recommendedVideos} direction="column" />
                 </Box>
             </Stack>
         </Box>
