@@ -2,7 +2,7 @@ import { Box, Stack } from '@mui/material';
 import { VideoCard, ChannelCard } from '~/components';
 
 function Videos({ videos }) {
-    console.log(videos);
+    console.log('videos', videos);
     return (
         <Stack direction="row" flexWrap="wrap" justifyContent="start" gap={2}>
             {videos.map((item, index) => {

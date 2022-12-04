@@ -3,7 +3,7 @@ import { Box, CardContent, CardMedia, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 import images from '~/assets/imgs';
 
-function ChannelCard({ channelDetail }) {
+function ChannelCard({ channelDetail, marginTop }) {
     const channelTitle = channelDetail?.snippet?.title;
     const channelThumbnail = channelDetail?.snippet?.thumbnails?.high?.url;
     const subCount = channelDetail?.statistics?.subscriberCount;
@@ -12,12 +12,13 @@ function ChannelCard({ channelDetail }) {
             sx={{
                 boxShadow: 'none',
                 borderRadius: '20px',
-                display: channelDetail?.id?.channelId ? 'flex' : 'none',
+                display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
                 width: { xs: '356px', md: '320px' },
                 height: '326px',
                 margin: 'auto',
+                marginTop,
             }}
         >
             <Link to={`/channel/${channelDetail?.id?.channelId}`}>

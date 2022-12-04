@@ -10,7 +10,12 @@ function Feed() {
     const [videos, setVideos] = useState([]);
 
     useEffect(() => {
-        fetchFromApi('/search', selectedCategory)
+        const params = {
+            q: selectedCategory,
+            part: 'snippet',
+            maxResults: '50',
+        };
+        fetchFromApi('/search', params)
             .then((data) => {
                 setVideos(data.items);
             })
