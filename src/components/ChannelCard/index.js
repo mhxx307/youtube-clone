@@ -41,6 +41,7 @@ function ChannelCard({ channelDetail, marginTop }) {
                             mb: 2,
                             border: '1px solid #e3e3e3',
                         }}
+                        component="img"
                     />
                     <Typography variant="h6">
                         {channelTitle}

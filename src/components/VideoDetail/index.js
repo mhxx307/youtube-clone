@@ -29,10 +29,10 @@ function VideoDetail() {
             });
 
         const params2 = {
-            part: 'snippet',
-            relatedToVideo: id,
+            part: 'id,snippet',
+            relatedToVideoId: id,
             type: 'video',
-            maxResults: 10,
+            maxResults: 50,
         };
         fetchFromApi('/search', params2)
             .then((data) => {

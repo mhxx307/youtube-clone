@@ -1,28 +1,74 @@
 import { Box, Stack, Typography } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { Sidebar } from '~/components';
 import { Videos } from '~/components';
 import { fetchFromApi } from '~/utils/fetchFromApi';
 
-// chứa sidebar và videos
 function Feed() {
-    const [selectedCategory, setSelectedCategory] = useState('New');
+    const [selectedCategory, setSelectedCategory] = useState('Home');
     const [videos, setVideos] = useState([]);
+    const [nextPageToken, setNextPageToken] = useState(null);
+    const [isFetching, setIsFetching] = useState(false);
+
+    const fetchVideos = useCallback(
+        (isLoadMore = false) => {
+            if (isFetching) return;
+
+            setIsFetching(true);
+
+            const params = {
+                q: selectedCategory,
+                part: 'snippet',
+                maxResults: '20', // Fetch smaller chunks
+                pageToken: isLoadMore ? nextPageToken : null,
+            };
+
+            fetchFromApi('/search', params)
+                .then((data) => {
+                    setVideos((prevVideos) =>
+                        isLoadMore
+                            ? [...prevVideos, ...data.items]
+                            : data.items,
+                    );
+                    setNextPageToken(data.nextPageToken || null);
+                })
+                .catch((error) => {
+                    console.error(error);
+                })
+                .finally(() => {
+                    setIsFetching(false);
+                });
+        },
+        [selectedCategory, nextPageToken, isFetching],
+    );
 
     useEffect(() => {
-        const params = {
-            q: selectedCategory,
-            part: 'snippet',
-            maxResults: '50',
-        };
-        fetchFromApi('/search', params)
-            .then((data) => {
-                setVideos(data.items);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+        fetchVideos();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [selectedCategory]);
+
+    const handleScroll = useCallback(() => {
+        const scrollContainer = document.getElementById(
+            'video-scroll-container',
+        );
+        if (
+            scrollContainer.scrollHeight - scrollContainer.scrollTop <=
+            scrollContainer.clientHeight + 50 // Add a buffer
+        ) {
+            fetchVideos(true); // Load more videos
+        }
+    }, [fetchVideos]);
+
+    useEffect(() => {
+        const scrollContainer = document.getElementById(
+            'video-scroll-container',
+        );
+        if (!scrollContainer) return;
+
+        scrollContainer.addEventListener('scroll', handleScroll);
+        return () =>
+            scrollContainer.removeEventListener('scroll', handleScroll);
+    }, [handleScroll]);
 
     return (
         <Stack sx={{ flexDirection: { sx: 'column', md: 'row' } }}>
@@ -46,7 +92,25 @@ function Feed() {
                 </Typography>
             </Box>
 
-            <Box p={2} sx={{ overflowY: 'auto', height: '90vh', flex: 2 }}>
+            <Box
+                id="video-scroll-container" // Added ID for scroll container
+                p={2}
+                sx={{
+                    overflowY: 'auto', // Enables vertical scrolling
+                    height: '90vh', // Ensures the box height is limited to viewport height
+                    flex: 2, // Allows the box to grow proportionally
+                    '&::-webkit-scrollbar': {
+                        width: '8px', // Customize scrollbar width
+                    },
+                    '&::-webkit-scrollbar-thumb': {
+                        backgroundColor: 'rgba(255, 255, 255, 0.6)', // Customize scrollbar thumb color
+                        borderRadius: '4px',
+                    },
+                    '&::-webkit-scrollbar-thumb:hover': {
+                        backgroundColor: 'rgba(255, 255, 255, 0.8)', // Thumb color on hover
+                    },
+                }}
+            >
                 <Typography
                     variant="h4"
                     fontWeight="bold"
@@ -71,6 +135,18 @@ function Feed() {
                 </Typography>
 
                 <Videos videos={videos} />
+                {isFetching && (
+                    <Typography
+                        variant="body2"
+                        sx={{
+                            color: 'var(--gray-color)',
+                            textAlign: 'center',
+                            mt: 2,
+                        }}
+                    >
+                        Loading more videos...
+                    </Typography>
+                )}
             </Box>
         </Stack>
     );

@@ -1,32 +1,28 @@
 import MusicNoteIcon from '@mui/icons-material/MusicNote';
 import HomeIcon from '@mui/icons-material/Home';
-import CodeIcon from '@mui/icons-material/Code';
-import OndemandVideoIcon from '@mui/icons-material/OndemandVideo';
+import WhatshotIcon from '@mui/icons-material/Whatshot';
 import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
 import LiveTvIcon from '@mui/icons-material/LiveTv';
-import SchoolIcon from '@mui/icons-material/School';
-import FaceRetouchingNaturalIcon from '@mui/icons-material/FaceRetouchingNatural';
 import CheckroomIcon from '@mui/icons-material/Checkroom';
 import GraphicEqIcon from '@mui/icons-material/GraphicEq';
-import TheaterComedyIcon from '@mui/icons-material/TheaterComedy';
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
 import DeveloperModeIcon from '@mui/icons-material/DeveloperMode';
+import SportsSoccerIcon from '@mui/icons-material/SportsSoccer';
+import NewspaperIcon from '@mui/icons-material/Newspaper';
+import ShortTextIcon from '@mui/icons-material/ShortText';
 
 export const categories = [
-    { name: 'New', icon: <HomeIcon /> },
+    { name: 'Home', icon: <HomeIcon /> },
+    { name: 'Hololive', icon: <HomeIcon /> },
+    { name: 'Short', icon: <ShortTextIcon /> },
     { name: 'Music', icon: <MusicNoteIcon /> },
-    { name: 'Coding', icon: <CodeIcon /> },
-    { name: 'Movies', icon: <OndemandVideoIcon /> },
+    { name: 'Trending', icon: <WhatshotIcon /> },
     { name: 'Gaming', icon: <SportsEsportsIcon /> },
     { name: 'Live', icon: <LiveTvIcon /> },
-    { name: 'Education', icon: <SchoolIcon /> },
-    { name: 'Beauty', icon: <FaceRetouchingNaturalIcon /> },
     { name: 'Fashion', icon: <CheckroomIcon /> },
-    { name: 'Sports', icon: <FitnessCenterIcon /> },
-    { name: 'Comedy', icon: <TheaterComedyIcon /> },
+    { name: 'Sports', icon: <SportsSoccerIcon /> },
     { name: 'Gym', icon: <FitnessCenterIcon /> },
-    { name: 'Scrypto', icon: <DeveloperModeIcon /> },
-    { name: 'ReactJS', icon: <CodeIcon /> },
-    { name: 'NextJS', icon: <CodeIcon /> },
     { name: 'Podcast', icon: <GraphicEqIcon /> },
+    { name: 'English', icon: <DeveloperModeIcon /> },
+    { name: 'News', icon: <NewspaperIcon /> },
 ];
